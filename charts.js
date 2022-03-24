@@ -95,16 +95,17 @@ function buildCharts(sample) {
       y: sample_values,
       text: otu_labels,
       type: "bubble",
+      colorscale: 'YlOrRd',
       mode: "markers",
       marker: {
         size: sample_values,
-        colorscale: 'hot'
+        type: "heatmap"
       }
     }];
 
     // 2. Create the layout for the bubble chart.
     var bubbleLayout = {
-      title: "Bacteria Cultures Per Sample",
+      title: "Bacteria Cultures per Sample",
       xaxis: {title: "OTU ID"},
       yaxis: {title: "Number of Cultures"}
     };
@@ -117,24 +118,28 @@ function buildCharts(sample) {
     // 4. Create the trace for the gauge chart.
     var gaugeData = [{
       title: {text: "Belly Button Washing Frequency"},
+      meta: {text: "Scrubs per Week"},
       value: washingFrequency,
       type: "indicator",
       mode: "gauge+number",
       gauge: {
         bar: {color: "black"},
-        axis: {range: [null,10]},
+        axis: {range: [null,10], dtick: 2},
         steps: [
           {range: [0, 2], color: "red"},
           {range: [2, 4], color: "orange"},
           {range: [4, 6], color: "yellow"},
           {range: [6, 8], color: "lightgreen"},
           {range: [8, 10], color: "green"}
+
         ]
       }
     }];
     
     // 5. Create the layout for the gauge chart.
     var gaugeLayout = { 
+      title: "Belly Button Washing Frequency",
+      yanchor: 'top'
     };
 
     // 6. Use Plotly to plot the gauge data and layout.
